@@ -13,7 +13,16 @@ class NODE {
 
 int main(){
     NODE *HEAD;
+    NODE *TEMP;
+    TEMP = new NODE(500);
     HEAD = new NODE(400);
+
+    TEMP->next = HEAD;
+    HEAD = TEMP;
+
+    if(HEAD == NULL){
+        HEAD = new NODE(300);
+    }
 
     cout << HEAD->data << endl;
     cout << HEAD->next << endl;
