@@ -14,12 +14,19 @@ public:
 
 ListNode* CreateLinkedList(int arr[], int index, int size, ListNode *prev){
     if (index == size) return prev;
-
     ListNode *temp = new ListNode(arr[index]);
     temp->next = prev;
 
     return CreateLinkedList(arr, index + 1, size, temp);
-}
+};
+
+ListNode *ReverseLinkedList(ListNode * current, ListNode * prev) {
+    if(current == NULL) return prev;
+    ListNode *future = current->next;
+    current->next = prev;
+
+    return ReverseLinkedList(future, current);
+};
 
 int main(){
     int arr[7] = {100, 200, 300, 400, 500, 600, 700};
@@ -29,23 +36,15 @@ int main(){
 
     ListNode *current = head;
     ListNode *prev = NULL;
-    ListNode *future = NULL;
 
-    while(current){
-        future = current->next;
-        current->next = prev;
-        prev = current;
-        current = future;
-    }
+    head = ReverseLinkedList(head, NULL);
 
-    ListNode *result = prev;  
+    ListNode *result = head;
 
-    while(result){
+    while (result){
         cout << result->value << " -> ";
         result = result->next;
     }
 
     cout << "NULL" << endl;
-
-    return 0;
 }

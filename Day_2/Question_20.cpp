@@ -14,12 +14,32 @@ public:
 
 ListNode* CreateLinkedList(int arr[], int index, int size, ListNode *prev){
     if (index == size) return prev;
-
     ListNode *temp = new ListNode(arr[index]);
     temp->next = prev;
 
     return CreateLinkedList(arr, index + 1, size, temp);
-}
+};
+
+ListNode* MiddleList(ListNode *head) {
+    int count = 0;
+
+    ListNode *temp = head;
+
+    while (temp != NULL){
+        count++;
+        temp = temp->next;
+    }
+
+    count /= 2;
+
+    temp = head;
+
+    while (count--){
+        temp = temp->next;
+    }
+
+    return temp;
+};
 
 int main(){
     int arr[7] = {100, 200, 300, 400, 500, 600, 700};
@@ -27,25 +47,14 @@ int main(){
 
     ListNode *head = CreateLinkedList(arr, 0, n, NULL);
 
-    ListNode *current = head;
-    ListNode *prev = NULL;
-    ListNode *future = NULL;
+    ListNode *middle = MiddleList(head);
 
-    while(current){
-        future = current->next;
-        current->next = prev;
-        prev = current;
-        current = future;
-    }
+    ListNode *current = middle;  
 
-    ListNode *result = prev;  
-
-    while(result){
-        cout << result->value << " -> ";
-        result = result->next;
+    while (current){
+        cout << current->value << " -> ";
+        current = current->next;
     }
 
     cout << "NULL" << endl;
-
-    return 0;
 }
